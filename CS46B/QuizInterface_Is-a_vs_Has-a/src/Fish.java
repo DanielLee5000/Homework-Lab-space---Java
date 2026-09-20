@@ -1,7 +1,7 @@
 import java.util.*;
 // fix by implementing interface Comparable<Fish>
 // xxx your codes
-public class Fish implements  Comparable<Fish> { 
+public class Fish ___xxx___ ___xxx___ <___xxx___> { 
     protected double length;
 
     public Fish (double x ) { length = x; }
@@ -11,21 +11,13 @@ public class Fish implements  Comparable<Fish> {
     }
     @Override
     public boolean equals (Object o) { // fix by overridding equals
-      if (this == o){
-         return true;
-      }
-
-      if (!(o instanceof Fish)){
-         return false;
-      }
-
-      Fish other = (Fish) o;
-      return Double.compare(length, other.length) == 0;
+       // xxx
+       // your codes 
     }
-
     @Override
     public int compareTo (Fish o) { // fix by adding compareTo
-      return Double.compare(this.length, o.length);
+       // xxx
+       // your codes
     }
 
  public static void main(String[] args) {
