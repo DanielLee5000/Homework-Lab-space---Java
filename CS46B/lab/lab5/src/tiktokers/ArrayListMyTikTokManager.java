@@ -1,11 +1,15 @@
 package tiktokers;
 
+import static org.junit.Assert.assertNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import org.junit.Test;
 
 /**
  * An implementation of the AddressBook interface that uses an array list to
@@ -84,7 +88,12 @@ public class ArrayListMyTikTokManager implements MyTikTokManager {
                 return oldValue;
             }
         }
-
     return null;
+    }
+    
+    @Test
+    public void anEmptyDirectoryHasNoRumpledEater() { MyTikTokManager
+        dir = new ArrayListMyTikTokManager();
+        assertNull(dir.get("@rumpledeater", "Followers"));
     }
 }
