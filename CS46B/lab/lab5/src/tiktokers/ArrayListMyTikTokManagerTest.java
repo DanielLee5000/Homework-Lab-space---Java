@@ -1,13 +1,30 @@
 package tiktokers;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ArrayListMyTikTokManagerTest {
-    @Test 
+    private MyTikTokManager manager;
+    private MyTikTokManager topTen;
+
+    @Before
+    public void setUp() {
+        manager = new ArrayListMyTikTokManager();
+        topTen = new ArrayListMyTikTokManager();
+        topTen.load("src/tiktokers/Top10TikTokers.txt");
+    }
+
+    @Test
+    public void topTenContainsBurak() {
+        assertNotNull(topTen.get("@cznburak", "Followers"));
+    }
+
+    @Test
     public void basicRemove() {
-        MyTikTokManager manager = new ArrayListMyTikTokManager();
         manager.put("alice", "followers", "100");
 
         String removed = manager.remove("alice", "followers");
@@ -18,7 +35,6 @@ public class ArrayListMyTikTokManagerTest {
 
     @Test
     public void removePresentEntry() {
-        MyTikTokManager manager = new ArrayListMyTikTokManager();
         manager.put("alice", "followers", "100");
 
         String removed = manager.remove("alice", "followers");
@@ -29,8 +45,6 @@ public class ArrayListMyTikTokManagerTest {
 
     @Test
     public void removeNonExistentEntryEmptyManager() {
-        MyTikTokManager manager = new ArrayListMyTikTokManager();
-
         String removed = manager.remove("alice", "followers");
 
         assertNull(removed);
@@ -38,7 +52,6 @@ public class ArrayListMyTikTokManagerTest {
 
     @Test
     public void removeNonExistentEntryNonEmptyManager() {
-        MyTikTokManager manager = new ArrayListMyTikTokManager();
         manager.put("alice", "followers", "100");
         manager.put("bob", "likes", "50");
 
