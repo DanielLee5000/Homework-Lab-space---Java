@@ -79,21 +79,25 @@ public class ArrayListMyTikTokManager implements MyTikTokManager {
     @Override
     public String remove(String username, String key) {
         for (int i = 0; i < items.size(); i++) {
-        Item it = items.get(i);
-
-        if (username.equals(it.getUserName()) && key.equals(it.getKey())) {
+            Item it = items.get(i);
+            if (username.equals(it.getUserName()) && key.equals(it.getKey())) {
                 String oldValue = it.getValue();
-                items.remove(i);
+                int lastIndex = items.size() - 1;
+                if (i != lastIndex) {
+                    Item lastItem = items.get(lastIndex);
+                    items.set(i, lastItem);
+                }
+                items.remove(lastIndex);
                 modified = true;
                 return oldValue;
             }
         }
-    return null;
+        return null;
     }
-    
+
     @Test
-    public void anEmptyDirectoryHasNoRumpledEater() { MyTikTokManager
-        dir = new ArrayListMyTikTokManager();
+    public void anEmptyDirectoryHasNoRumpledEater() {
+        MyTikTokManager dir = new ArrayListMyTikTokManager();
         assertNull(dir.get("@rumpledeater", "Followers"));
     }
 }
