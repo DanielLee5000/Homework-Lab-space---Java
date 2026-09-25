@@ -74,6 +74,17 @@ public class ArrayListMyTikTokManager implements MyTikTokManager {
 
     @Override
     public String remove(String username, String key) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (int i = 0; i < items.size(); i++) {
+        Item it = items.get(i);
+
+        if (username.equals(it.getUserName()) && key.equals(it.getKey())) {
+                String oldValue = it.getValue();
+                items.remove(i);
+                modified = true;
+                return oldValue;
+            }
+        }
+
+    return null;
     }
 }
