@@ -42,8 +42,13 @@ public class DogFinder {
 					line = br.readLine();
 					if (line == null)
 						done = true;// EOF (end of file)
-					else
-						addDog(allDogs,line);
+					else 
+						try {
+							addDog(allDogs,line);
+						}
+						catch(DogException dex) {
+							System.out.println(dex.getMessage());
+						}
 		         }
 				br.close();
 				fr.close();
