@@ -21,7 +21,7 @@ public class MazeSolver
 
       Robot fred = new Robot(maze, 5, 8);
       fred.setDebug(true);
-      fred.escape();
+      fred.escape2();
       System.out.println(fred.getVisited());
    }
 }

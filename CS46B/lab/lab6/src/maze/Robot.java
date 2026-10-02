@@ -32,26 +32,44 @@ public class Robot
    {
       if(atExit()){
          System.out.println("It's escaped!"); 
-         System.exit(0);
-      }
 
-      if(!canMove()){
-         turnLeft();
       }else{
-         move();
-         turnRight();
-         if(canMove()){
-            move();
-         }else{
+         if(!canMove()){
             turnLeft();
-         }
+
+            }else{
+               move();
+               turnRight();
+
+               if(canMove()){
+                  move();
+
+               }else{
+                  turnLeft();
+               }
+            }
+         escape();
       }
-      escape();
    }
 
    public boolean escape2()
-   {      
-	   return false;
+   {
+      if (atExit())
+         return true;
+
+      for (int i = 0; i < DIRECTIONS; i++) { // this loop makes the robot check all possibledirections 
+         turnRight();
+
+         if (canMove()) {
+            Robot cloned = clone();
+            cloned.move();
+            if (cloned.escape2()) {
+               visited = new ArrayList<String>(cloned.visited);
+               return true;
+            }
+         }
+      }
+      return false;
    }
 
    public void move()
