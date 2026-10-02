@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MazeSolver",
+            "request": "launch",
+            "mainClass": "maze.MazeSolver",
+            "projectName": "lab6_4f6d72e0"
+        },
+        {
+            "type": "java",
             "name": "FactorialGenerator",
             "vmArgs": "-enableassertions",
             "request": "launch",

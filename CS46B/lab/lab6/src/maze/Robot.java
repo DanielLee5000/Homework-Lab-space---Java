@@ -31,7 +31,6 @@ public class Robot
    public void escape()
    {
 	  
-			
    }
 
    public boolean escape2()
