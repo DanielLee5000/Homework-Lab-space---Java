@@ -2,24 +2,20 @@ package recursion;
 
 public class FactorialGenerator {
     private int n;
-    private long result;
+    private double result;
 
     public FactorialGenerator(int n){
         this.n = n;
         this.result = nthFactorial(n);
     }
 
-    public long nthFactorial(int n) {
-        if (n < 0) {
-            throw new IllegalArgumentException("n must be non-negative");
-        }
-        if (n == 0) {
-            return 1;
-        }
+    public double nthFactorial(int n) {
         return computeFactorialRecurse(n);
     }
 
-    private long computeFactorialRecurse(int n){
+    private double computeFactorialRecurse(int n){
+        assert n >= 0 : "n must be non-negative";
+
         if (n == 0) {
             return 1;
         }
@@ -31,7 +27,12 @@ public class FactorialGenerator {
     }
 
     public static void main(String[] args) {
-        FactorialGenerator x = new FactorialGenerator(6);
-        System.out.println(x.toString());
+        System.out.println(Long.MAX_VALUE);
+
+        FactorialGenerator x = new FactorialGenerator(0);
+        
+        for(int i = 1; i <= 32; i++){
+            System.out.println(x.nthFactorial(i));
+        }
     }
 }
