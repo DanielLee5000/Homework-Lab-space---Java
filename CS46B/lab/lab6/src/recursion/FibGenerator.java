@@ -1,4 +1,6 @@
 package recursion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FibGenerator {
     private int n;
@@ -10,7 +12,11 @@ public class FibGenerator {
     }
 
     public int nthFib(int n) {
-        return computeFibRecurse(n);
+        Logger.getGlobal().info("Entering fib. n=" + n);
+        
+        int result = computeFibRecurse(n);
+        Logger.getGlobal().info("Exiting fib. return=" + result);
+        return result;
     }
 
     private int computeFibRecurse(int n){
@@ -18,10 +24,12 @@ public class FibGenerator {
 
         if (n == 1 || n == 2) {
             return 1;
+        }else{
+            int first = computeFibRecurse(n - 1);
+            int second = computeFibRecurse(n - 2);
+            int sum = first + second;
+            return sum;
         }
-
-
-        return computeFibRecurse(n - 1) + computeFibRecurse(n - 2);
     }
 
     public String toString() {
@@ -30,10 +38,10 @@ public class FibGenerator {
 
     public static void main(String[] args) {
         System.out.println("STARTING");
-
+        Logger.getGlobal().setLevel(Level.OFF);
         FibGenerator x = new FibGenerator(1);
         
-        for(int i = 500; i <= 510; i++){
+        for(int i = 1; i <= 10; i++){
             System.out.println("fib(" + i + ") = " + x.nthFib(i));
         }
     }
