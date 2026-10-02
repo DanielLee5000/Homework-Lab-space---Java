@@ -30,7 +30,23 @@ public class Robot
 
    public void escape()
    {
-	  
+      if(atExit()){
+         System.out.println("It's escaped!"); 
+         System.exit(0);
+      }
+
+      if(!canMove()){
+         turnLeft();
+      }else{
+         move();
+         turnRight();
+         if(canMove()){
+            move();
+         }else{
+            turnLeft();
+         }
+      }
+      escape();
    }
 
    public boolean escape2()
