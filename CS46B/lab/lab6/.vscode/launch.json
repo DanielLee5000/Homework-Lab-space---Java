@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "FibGenerator",
+            "request": "launch",
+            "mainClass": "recursion.FibGenerator",
+            "projectName": "lab6_4f6d72e0"
+        },
+        {
+            "type": "java",
             "name": "MazeSolver",
             "request": "launch",
             "mainClass": "maze.MazeSolver",
