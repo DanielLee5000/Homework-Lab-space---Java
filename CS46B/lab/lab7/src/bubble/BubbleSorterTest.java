@@ -33,21 +33,27 @@ public class BubbleSorterTest {
 		
 		BubbleSorter sorter = new BubbleSorter(a);
 		sorter.sort();
-		//what line of code should I add here to see if the Array is Sorted?
-		
+		assertArrayEquals(sorted, sorter.getArray());
 	}
 	
 	@Test
 	public void testBackward() {
-		//This should test your algorithm on an array that is in reverse order
-		
+		int[] a = {4, 3, 2, 1};
+		int[] sorted = {1, 2, 3, 4};
+
+		BubbleSorter sorter = new BubbleSorter(a);
+		sorter.sort();
+		assertArrayEquals(sorted, sorter.getArray());
 	}
 	
 	@Test
 	public void testAlreadySorted() {
-		//This should test your algorithm on a sorted array
-	
-		
+		int[] a = {1, 2, 3, 4};
+		int[] sorted = {1, 2, 3, 4};
+
+		BubbleSorter sorter = new BubbleSorter(a);
+		sorter.sort();
+		assertArrayEquals(sorted, sorter.getArray());
 	}
 
 }

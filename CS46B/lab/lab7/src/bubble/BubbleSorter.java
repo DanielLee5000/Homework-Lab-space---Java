@@ -17,7 +17,21 @@ public class BubbleSorter
 	{
 		nVisits = 0;
 		nSwaps = 0;
-		
+
+		for (int pass = 0; pass < a.length - 1; pass++)
+		{
+			for (int i = 0; i < a.length - pass - 1; i++)
+			{
+				nVisits += 2;
+				if (a[i] > a[i + 1])
+				{
+					int temp = a[i];
+					a[i] = a[i + 1];
+					a[i + 1] = temp;
+					nSwaps++;
+				}
+			}
+		}
 	}
 	
 	
