@@ -1,7 +1,7 @@
 package bubble;
 
 import java.util.*;
-
+//java -ea Statistician ;
 
 public class Statistician 
 {
@@ -18,10 +18,22 @@ public class Statistician
 	}
 	
 	private static boolean isSorted(int[] a) {
-		for(int i=0;i<a.length-2;i++) {
+		for(int i=0;i<a.length - 	1;i++) {
 			if(a[i]>a[i+1]) {return false;}
 		}
 		return true;
+	}
+
+	private static void printMinAverageMax(String label, ArrayList<Long> counts)
+	{
+		long min = Collections.min(counts);
+		long max = Collections.max(counts);
+		long total = 0;
+		for (long count : counts)
+			total += count;
+
+		double average = (double) total / counts.size();
+		System.out.println(label + " - min: " + min + ", average: " + average + ", max: " + max);
 	}
 	
 	private static void getStats(int arrayLength)
@@ -33,32 +45,37 @@ public class Statistician
 		{
 			int[] array = buildRandom(arrayLength, arrayLength*100);
 			BubbleSorter sorter = new BubbleSorter(array);
-			sorter.sort();
-			// Assert that the sorter sorted correctly.
-			// Append # visits and # swaps to the array lists.
-
+			sorter.sort();	
+			assert isSorted(sorter.getArray());
+			visitCounts.add(sorter.getNVisits());
+			swapCounts.add(sorter.getNSwaps());
 		}
 
-		// Compute and print min/average/max number of visits.
-		// Compute and print min/average/max number of swaps.
-
+		printMinAverageMax("Visits", visitCounts);
+		printMinAverageMax("Swaps", swapCounts);
 	}
+
 	
 	public static void main(String[] args)
 	{
-		int[] tiny = {1,24,5,25};
-		int[] alreadySorted = {};//fill in your example
-		int[] backward = {};//fill in your example
+		int[] tiny = {1, 24, 5, 10};
+		int[] alreadySorted = {1, 2, 3, 4};
+		int[] backward = {4, 3, 2, 1};
 		System.out.println("Tiny");
 		BubbleSorter tinySorted = new BubbleSorter(tiny);
 		tinySorted.sort();
 		System.out.println(tinySorted);
 		
 		System.out.println("Already Sorted");
-		
+		BubbleSorter alreadySortedSorter = new BubbleSorter(alreadySorted);
+		alreadySortedSorter.sort();
+		System.out.println(alreadySortedSorter);
 		
 		System.out.println("Backward");
-	
+		BubbleSorter backwardSorted = new BubbleSorter(backward);
+		backwardSorted.sort();
+		System.out.println(backwardSorted);
+
         System.out.println("1000:");
         getStats(1000);
         

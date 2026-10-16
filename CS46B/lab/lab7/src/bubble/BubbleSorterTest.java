@@ -54,6 +54,8 @@ public class BubbleSorterTest {
 		BubbleSorter sorter = new BubbleSorter(a);
 		sorter.sort();
 		assertArrayEquals(sorted, sorter.getArray());
+		assertEquals(0, sorter.getNSwaps());
+		assertEquals(6, sorter.getNVisits());
 	}
 
 }

@@ -20,17 +20,21 @@ public class BubbleSorter
 
 		for (int pass = 0; pass < a.length - 1; pass++)
 		{
+			boolean swapped = false;
 			for (int i = 0; i < a.length - pass - 1; i++)
 			{
-				nVisits += 2;
+				nVisits += 2; // each sort visit two times
 				if (a[i] > a[i + 1])
 				{
 					int temp = a[i];
 					a[i] = a[i + 1];
 					a[i + 1] = temp;
 					nSwaps++;
+					swapped = true;
 				}
 			}
+			if (!swapped)
+				break;
 		}
 	}
 	
