@@ -1,0 +1,9 @@
+Stack
+
+Java.util.Stack
+Push < stack on the newest layer
+Pop < remove the first layer
+Peak < check only
+isEmpty < check empty
+
+Stack<T> works with any reference type
