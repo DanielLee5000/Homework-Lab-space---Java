@@ -7,3 +7,87 @@ Peak < check only
 isEmpty < check empty
 
 Stack<T> works with any reference type
+
+push(10); stack{10}
+push(20); stack{10, 20}
+push(30); stack{10, 20, 30}
+
+int a = pop(); stack{10, 20} // a = 30
+int b = pop(); stack{10} // b = 20
+
+Node v.s Stack
+Stack is a data structure that follows the Last In First Out (LIFO) principle, meaning
+that the last element added to the stack is the first one to be removed.
+It is typically implemented using an array or a linked list.
+
+
+ex: reverse function
+public static String reverse(String input) {
+    // Stack<Character> stack = new Stack<>(); or Deque<character> stack = new ArrayDeque<>();
+    Deque<Character> stack = new ArrayDeque<>();
+
+    for (char c : input.toCharArray()){
+        stack.push(c);
+    }
+
+    StringBuilder result = new StringBuilder();
+    while (!stack.isEmpty()) {
+        result.append(stack.pop());
+    }
+
+    return result.toString();
+}
+
+
+*Deque is a double-ended queue that allows insertion and removal of elements from both ends. 
+It can be used as both a stack and a queue, providing more flexibility in data management.
+
+*stringBuilder is a mutable sequence of characters. 
+It is used to create and manipulate strings efficiently, especially when concatenating multiple strings together.
+
+append() < add to the end
+appendleft() < add to the front
+
+stack ADT can be implemented morethan one way undermeath
+*Arra-based - bacled by a plain array (or ArrayList) //No shifts (Contiguos)
+*Linked-list based - backed by a chain of nodes //Scattered (pointers)
+
+Both satisfy the stack ADT, - push/pop/peek behave identically from the outside
+But their performance characteristics differ. 
+Array-based stacks have O(1) time complexity for push and pop operations, but may require resizing when the array is full.
+Linked-list based stacks have O(1) time complexity for push and pop operations as well, 
+but they use more memory due to the storage of node pointers.
+
+
+Array is a sequence of elements stored in contiguous memory locations.
+List is a collection of elements that can be dynamically resized and allows for easy insertion and deletion of elements.
+
+Stack implement the array with five functions pop/push/peek/isEmpty/size need to resize the array when it is full
+stack implement the LinkedList with five functions pop/push/peek/isEmpty/size is easier
+
+ex:
+public class ArrayStack {
+    private int[] data = new int[10];
+    private int top = -1;
+
+    public void push(int value) {
+        data[top++] = value;
+}
+}
+// also need to resize the array when it is full
+
+Array deque
+
+
+Write isBalanced(String s) that returns true if every bracket is properly closed.
+–Brackets to support: ( ) [ ] { }
+
+–"{[()]}" → true        "{[(])}" → false
+
+public static boolean isBalanced(String s) {
+
+    // TODO: push opening brackets;
+
+    //       on a closer, pop and check it matches
+
+}
