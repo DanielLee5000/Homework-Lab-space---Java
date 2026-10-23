@@ -81,6 +81,12 @@ public class LinkedPlayList {
 	//Returns true if the LinkedPlayList contains a Node with Song s
 	//Returns false otherwise
 	public boolean contains(Song s) {
+		Node current = head;
+		while (current != null){
+			if (current.song.equal(s))
+				return True;
+			current = current.next;
+		}
 		return false;
 	}
 	
