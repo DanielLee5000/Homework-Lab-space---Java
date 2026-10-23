@@ -95,7 +95,17 @@ public class LinkedPlayList {
 	//You should add a new Node containing Song, song 
 	//to the end of the PlayList
 	public void append(Song song) {
-		
+		Node node = new Node(song, null);
+		if (head == null) {
+			head = node;
+			return;
+		}
+
+		Node current = head;
+		while (current.next != null) {
+			current = current.next;
+		}
+		current.next = node;
 	}
 	
 	//****IMPLEMENT THIS*******//
@@ -104,7 +114,15 @@ public class LinkedPlayList {
 	//Throws an indexOutOfBoundsException if the index is less than 0
 	// or greater than or equal to the size of the list
 	public Node get(int index) {
-		return null;
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException("Index: " + index);
+		}
+
+		Node current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		return current;
 	}
 	
 	//****IMPLEMENT THIS*******//
@@ -116,7 +134,20 @@ public class LinkedPlayList {
 	//If the index is invalid, throw an IndexOutOfBoundsException
 	//Think about how to use the get method to implement the add method
 	public void add(int loc,Song song) {
-		
+		if (loc < 0 || loc > size()) {
+			throw new IndexOutOfBoundsException("Index: " + loc);
+		}
+
+		Node node = new Node(song, null);
+		if (loc == 0) {
+			node.next = head;
+			head = node;
+			return;
+		}
+
+		Node previous = get(loc - 1);
+		node.next = previous.next;
+		previous.next = node;
 	}
 	
 	//****IMPLEMENT THIS*******//
@@ -124,6 +155,25 @@ public class LinkedPlayList {
 	//if the list is empty throw an illegal argument exception
 	//if the list doesn't contain the song, return false	
 	public boolean removeOne(Song song) {
+        if (head == null) {
+            throw new IllegalArgumentException("Cannot remove a song from an empty playlist.");
+        }
+
+        Node previous = null;
+        Node current = head;
+
+        while (current != null) {
+            if (current.song.equals(song)) {
+                if (previous == null) {
+                    head = current.next;
+                } else {
+                    previous.next = current.next;
+                }
+                return true;
+            }
+            previous = current;
+            current = current.next;
+        }
         return false;
 	}
 	
@@ -133,8 +183,34 @@ public class LinkedPlayList {
 	//if the list doesn't contain the song, 
 	//then print a useful message to the console
 	public boolean removeAll(Song song) {
-		return false;
-	}
+		if (head == null) {
+            throw new IllegalArgumentException("Cannot remove songs from an empty playlist.");
+        }
+
+        boolean removed = false;
+
+        // Remove matching nodes at the head.
+        while (head != null && head.song.equals(song)) {
+            head = head.next;
+            removed = true;
+        }
+
+        // Remove matching nodes after the head.
+        Node current = head;
+        while (current != null && current.next != null) {
+            if (current.next.song.equals(song)) {
+                current.next = current.next.next;
+                removed = true;
+            } else {
+                current = current.next;
+            }
+        }
+
+        if (!removed) {
+            System.out.println("The playlist does not contain the specified song.");
+        }
+        return removed;
+    }
 	
     //****IMPLEMENT THIS*******//
     //Look for the node in the list that contains dataBefore
@@ -143,9 +219,14 @@ public class LinkedPlayList {
     //the new list would be [1,2,7,3]
     //Returns true if the method successfully inserts the song and false otherwise
     public boolean insertAfter(Song prevSong, Song songToAdd) {
-      return false;
-        }
-        
+		Node current = head;
+		while (current != null) {
+			if (current.song.equals(prevSong)) {
+				current.next = new Node(songToAdd, current.next);
+				return true;
+			}
+			current = current.next;
+		}
+		return false;
+	}
     }
-
-}

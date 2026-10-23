@@ -89,6 +89,16 @@ public class LinkedPlayListTest {
 	public void getLastTest() {
 		assertTrue(s4.equals(songs.get(3).getSong()));
 	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void getNegativeIndex() {
+		songs.get(-1);
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void getIndexAtListSize() {
+		songs.get(songs.size());
+	}
 	
 	@Test 
 	public void addHeadTest() {
@@ -115,6 +125,22 @@ public class LinkedPlayListTest {
 		songs.add(2, s5);
 		
 		assertTrue(songs.equals(added));
+	}
+
+	@Test
+	public void addToEmptyList() {
+		empty.add(0, s1);
+
+		assertEquals(1, empty.size());
+		assertTrue(s1.equals(empty.get(0).getSong()));
+	}
+
+	@Test
+	public void addAtEnd() {
+		songs.add(songs.size(), s5);
+
+		assertEquals(5, songs.size());
+		assertTrue(s5.equals(songs.get(4).getSong()));
 	}
 	
 	@Test 
