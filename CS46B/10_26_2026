@@ -1,0 +1,15 @@
+JVM has a "Call Stack"
+
+stack frame > a method create a block
+process by the program run > Call stack
+if infinite then stackOverFlowError
+Heap object remain but once program down, call stack down
+
+Stack [] Empty Stack
+Done!
+
+Queue
+Breath-first search
+
+Core Queue operations:
+enQueue / deQueue
