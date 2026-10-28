@@ -1,0 +1,42 @@
+Queue
+
+Queue is a interface not a class
+java.util.Queue needed
+Queue<Integer> queue = new LinkedList<>();
+
+Queue in stack
+and the LinkedList will be create in heap
+
+Deququing From the Queue
+FIFO
+
+poll() return a element and remove it from the queue, if the queue is empty it returns null.
+simular to pop() in stack
+
+add / offer
+remove / poll
+element / peek
+        / isEmpty
+
+enQueue: O(1) directly to the tail of the queue
+deQueue: O(1) directly to the head of the queue
+
+
+Array-Based Queue
+Array-based queue is a queue that is implemented using an array. It has a fixed size and can be inefficient if the queue becomes full and needs to be resized.
+The elements are stored in a contiguous block of memory, and the front and rear indices are used to keep track of the elements in the queue.
+
+front: The index of the first element in the queue.
+rear: The index of the last element in the queue.
+
+When an element is added to the queue, it is placed at the rear index, and the rear index is incremented. When an element is removed from the queue, it is taken from the front index, and the front index is incremented.
+
+In Java: Deque
+Deque is a double-ended queue that allows elements to be added or removed from both ends.
+It is implemented using the java.util.Deque interface and can be used as both a stack and a queue.
+
+Better than stack
+
+Stack: LIFO (Last In First Out)           / remove & add from the top
+Queue: FIFO (First In First Out)          / remove from the front and add to the rear
+Deque: Can be used as both LIFO and FIFO  / remove & add from both ends
