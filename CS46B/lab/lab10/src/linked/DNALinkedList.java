@@ -42,9 +42,11 @@ public class DNALinkedList {
     // Used by extraction methods. Not for public use.
     private DNALinkedList(Node<Character> head, Node<Character> tail) {
         this.head = head;
-        head.prev = null;
+        if (head != null)
+            head.prev = null;
         this.tail = tail;
-        tail.next = null;
+        if (tail != null)
+            tail.next = null;
     }
 
     // Converts arg to nodes which are appended to end of this list.
@@ -99,7 +101,14 @@ public class DNALinkedList {
     // and if startNode is the 2nd node (“B”), then matches(startNode, “BCDE”)
     // should return true.
     private boolean matches(Node<Character> startNode, String target) {
-        return false;
+        Node<Character> current = startNode;
+        for (int i = 0; i < target.length(); i++) {
+            if (current == null || current.data != target.charAt(i)) {
+                return false;
+            }
+            current = current.next;
+        }
+        return true;
     }
 
     // If this list contains a chain of nodes whose data is the target, returns
@@ -109,42 +118,58 @@ public class DNALinkedList {
     // returns null.
     public Node<Character> find(String target) {
         // Hint: call matches(). A lot.
-        return new Node(null);
+        Node<Character> current = head;
+        while (current != null) {
+            if (matches(current, target)) {
+                return current;
+            }
+            current = current.next;
+        }
+        return null;
     }
 
     // Extract and return the nodes starting at firstExtractedNode and ending at
-    // lastExtractedNode.
-    // The returned nodes should be a DNALinkedList. Don’t worry about any corner
-    // cases: assume
-    // firstExtractedNode and lastExtractedNode are both in the list and are not
-    // near the head or tail.
+    // lastExtractedNode, including when the extracted chain reaches either end.
     public DNALinkedList extract(Node<Character> firstExtractedNode, Node<Character> lastExtractedNode) {
-        // Find nodes just before and just after the chain to be extracted. Assume these
-        // aren't null.
         Node<Character> beforeFirst = firstExtractedNode.prev;
         Node<Character> afterLast = lastExtractedNode.next;
-        
-        // Connect beforeFirst to afterLast.
-        beforeFirst.next = ???;
-        afterLast.prev  = ???;
-        
+
+        if (beforeFirst == null)
+            head = afterLast;
+        else
+            beforeFirst.next = afterLast;
+
+        if (afterLast == null)
+            tail = beforeFirst;
+        else
+            afterLast.prev = beforeFirst;
+
         // Return a DNALinkedList containing the extracted chain.
         return new DNALinkedList(firstExtractedNode, lastExtractedNode);
     }
 
-    // Inserts insertMe into this list, at the node before insertionPoint. Assumes
-    // insertionPoint is not the head or tail.
+    // Inserts insertMe immediately before insertionPoint, or at the end if
+    // insertionPoint is null.
     public void insert(DNALinkedList insertMe, Node<Character> insertionPoint) {
-        // Find node immediately before insertion point.
-        Node<Character> beforeInsertionPoint = ???;
-        
-        // Connect node immediately before insertion point to head of insertMe.
-        beforeInsertionPoint.next = ???;
-        insertMe.head.prev = ???;
-        
-        // Connect tail of insertMe to insertionPoint node.
-        insertMe.tail.next = ???;
-        insertionPoint.prev = ???;
+        if (insertMe.head == null)
+            return;
+        if (insertMe == this)
+            throw new IllegalArgumentException("Cannot insert a list into itself");
+
+        Node<Character> beforeInsertionPoint =
+                insertionPoint == null ? tail : insertionPoint.prev;
+
+        if (beforeInsertionPoint == null)
+            head = insertMe.head;
+        else
+            beforeInsertionPoint.next = insertMe.head;
+        insertMe.head.prev = beforeInsertionPoint;
+
+        insertMe.tail.next = insertionPoint;
+        if (insertionPoint == null)
+            tail = insertMe.tail;
+        else
+            insertionPoint.prev = insertMe.tail;
     }
 
     // Reverses the order of the nodes.
@@ -153,11 +178,16 @@ public class DNALinkedList {
         // to advance n by setting n = n.next(). Why? How should you advance n?
         Node<Character> n = head;
         while (n != null) {
-            // fill this in
+            Node<Character> temp = n.next;
+            n.next = n.prev;
+            n.prev = temp;
+            n = temp;
         }
 
         // Swap head and tail.
-        // fill this in
+        Node<Character> temp = head;
+        head = tail;
+        tail = temp;
     }
 
     // Removes sequence matching transposon, reverses it, and inserts it back into
@@ -165,36 +195,39 @@ public class DNALinkedList {
     // can't find transposon or target. Use the methods you just wrote.
     public void transpose(String transposon, String target) {
         // Find starting node of transposon.
-        Node<Character> firstNodeOfTransposon = ???;
+        Node<Character> firstNodeOfTransposon = find(transposon);
         if (firstNodeOfTransposon == null)
-            ???
-            
+            throw new IllegalArgumentException("Transposon not found");
+
             // Find last node of transposon. You'll need several lines. Set a variable to the first node
             // of the transposon, then do a loop where for every char in the transposon, you set the variable
             // to its "next".
-            Node<Character> lastNodeOfTransposon = ???
-            
+            Node<Character> lastNodeOfTransposon = firstNodeOfTransposon;
+            for (int i = 1; i < transposon.length(); i++) {
+                lastNodeOfTransposon = lastNodeOfTransposon.next;
+            }
+
             // Extract the transposon.
-            DNALinkedList transposonList = ???
-            
+            DNALinkedList transposonList = extract(firstNodeOfTransposon, lastNodeOfTransposon);
+
             // Reverse the transposon.
             transposonList.reverse();
         
         // Find starting node of target.
-        Node<Character> firstNodeOfTarget = ???
+        Node<Character> firstNodeOfTarget = find(target);
         if (firstNodeOfTarget == null)
-            ???
-            
+            throw new IllegalArgumentException("Target not found");
+
             // Insert immediately before target.
-            insert(???, ???);
+            insert(transposonList, firstNodeOfTarget);
     }
 
     public static void main(String[] args) {
-        String chromosome = ???;
+        String chromosome = "AACGTGCCATTA";
         DNALinkedList list = new DNALinkedList(chromosome);
         System.out.println("original  : " + list);
-        String transposon = ???
-        String target = ???
+        String transposon = "GTGC";
+        String target = "ATTA";
         list.transpose(transposon, target);
         System.out.println("transposed: " + list);
     }

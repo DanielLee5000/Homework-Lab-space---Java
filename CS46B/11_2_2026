@@ -1,0 +1,30 @@
+Tree ADT
+tree node
+
+ex:
+public class Tree{
+    private static class TreeNode{
+        int data;
+        ArrayList<TreeNode> children;
+
+        public TreeNode(int data){
+            this.data = data;
+            this.children = new ArrayList<>();
+        }
+    }
+    TreeNode root;
+}
+
+*tree only go down
+
+addchildren method
+
+find method
+
+
+Binary Tree ADT
+binary tree node
+
+full binary tree: 
+complete binary tree:
+perfect binary tree: 

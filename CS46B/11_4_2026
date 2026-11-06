@@ -1,0 +1,62 @@
+Binary Search Tree: insert()
+
+Insert values in this order: 50, 30, 70, 20, 40, 60, 80, 65.
+For each value, start at the root:
+- If it is smaller than the current node, go left.
+- If it is larger than the current node, go right.
+- Insert it in the first empty spot.
+
+Example: insert 65. Compare with 50 (go right), 70 (go left), then 60 (go right). The right child of 60 is empty, so 65 goes there.
+
+Resulting tree:
+          50
+        /    \
+      30      70
+     /  \    /  \
+   20   40  60   80
+                \
+                 65
+
+Java example:
+
+class BSTInsertExample {
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+        }
+    }
+
+    static Node root;
+
+    static void insert(int value) {
+        root = insert(root, value);
+    }
+
+    private static Node insert(Node current, int value) {
+        if (current == null) {
+            return new Node(value);
+        }
+        if (value < current.data) {
+            current.left = insert(current.left, value);
+        } else if (value > current.data) {
+            current.right = insert(current.right, value);
+        }
+        return current;
+    }
+
+    public static void main(String[] args) {
+        int[] values = {50, 30, 70, 20, 40, 60, 80, 65};
+        for (int value : values) {
+            insert(value);
+        }
+    }
+}
+
+Each call to insert() puts the value in its correct spot and updates root if needed.
+This creates the resulting tree shown above. A duplicate value is ignored.
+
+Delete is more complicated because removing a node may require reconnecting its children.
