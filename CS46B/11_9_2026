@@ -1,0 +1,34 @@
+set
+
+HashSet no order, O1
+LinkedHashSet Maintains insertion order
+TreeSet Sorted order via Red-Black Tree
+
+equals & hashCode
+ex:
+Set<Integer> set = new HashSet<>();
+set.add(1);
+set.add(1);
+
+set.size() will be 1 because the two Integer objects are considered equal
+based on their equals() and hashCode() implementations.
+
+Set<Student> set = new HashSet<>();
+set.add(new Student("Alice", 1));
+set.add(new Student("Alice", 1));
+
+But if new Student objects are created with the same values, they will be treated as different objects
+unless equals() and hashCode() are overridden in the Student class to compare the relevant fields.
+
+to check the equal under this situations:
+if (this == o) return true;
+if (!(o instanceof Student)) return false;
+Student s = (Student) o;
+return id == s.id && Objects.equals(name, s.name);
+
+need to override hashCode() to ensure that equal objects have the same hash code,
+which is crucial for the correct functioning of hash-based collections like HashSet.
+@Override
+public int hashCode() {
+    return Objects.hash(id, name);
+}
